@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Str;
 class Question extends Model
 {
     use HasFactory;
@@ -28,4 +28,9 @@ class Question extends Model
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
+
+    public function setTitleAttribute($value){
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
 }
